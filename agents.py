@@ -1,3 +1,6 @@
+from crud import select, select_by_name
+from db import close
+
 def calc_imc(altura: float, peso: float) -> dict:
     '''
     Just use this tool if you are asked to calculate imc from a person
@@ -49,4 +52,20 @@ def calc_tdee(peso: float, altura: float, idade: int, sexo: str, nivel: str) -> 
     return {"bmr": bmr, 'tdee': tdee}
 
 
+def get_user_info(name: str) -> str:
+    """
+    Use it for identify the persona and in base of queries, you do a recomendation for the person of what should the person do different for body changes to get healther pay attention if the patient uses some type of medicine to remind them
+    """
     
+    print(f"📡 Tool get_user_info chamada para: {name}")
+    user = select_by_name(name)
+
+    
+    if user:
+        id_, name, idade, sexo, peso, altura, nivel_atividade, habits = user
+        return (
+            f"{name}, {idade} anos, sexo {sexo}, {peso}kg, {altura}cm, "
+            f"nível de atividade {nivel_atividade}. Hábitos: {habits}"
+        )
+
+    return "Usuário não encontrado."
