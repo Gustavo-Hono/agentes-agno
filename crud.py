@@ -1,7 +1,5 @@
 from db import connect, close
 
-
-
 def insert(name: str, idade: int):
     try:
         conexao = connect()
