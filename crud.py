@@ -12,6 +12,21 @@ def insert(name: str, idade: int):
     except Exception as e:
         conexao.rollback()
         print(f"Erro ao inserir: {e}")
+        
+def hallutination_checks(user_id:int, question:str, answer:str, veredict:str):
+    try:
+        conexao = connect()
+        cursor = conexao.cursor()
+        cmd = "INSERT INTO hallucination_checks(user_id, question, answer, veredict) VALUES (%s, %s, %s, %s)"
+        values = (user_id, question, answer, veredict)
+        cursor.execute(cmd, values)
+        conexao.commit()
+        print("Insert funcionou")
+        close(conexao, cursor)
+    except Exception as e:
+        print("Deu errado, \n {e}", e)
+        conexao.rollback()
+        close(conexao, cursor)
 
 def select():
     cmd = "SELECT * FROM users"
@@ -65,6 +80,7 @@ def update(name: str, idade: int, name_target: str):
             print("Atualizado:", updated)
         else:
             print("Nenhuma linha correspondente ao WHERE")
+            close(conexao, cursor)
     except Exception as e:
         conexao.rollback()
         print(f"Erro ao atualizar: {e}")
