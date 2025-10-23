@@ -1,11 +1,23 @@
 CREATE TABLE IF NOT EXISTS hallucination_checks (
     id SERIAL PRIMARY KEY,
+    message_id INTEGER
     user_id INTEGER REFERENCES users(id),
     question TEXT NOT NULL,
     answer TEXT NOT NULL,
     veredict JSONB NOT NULL,
+    justification TEXT,
     created_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS messages (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    role TEXT CHECK (role IN ('user', 'assistant')),
+    content TEXT NOT NULL,
+    session_id TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
