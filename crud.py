@@ -10,8 +10,8 @@ def get_all_interactions_by_user(user_id: int, session_id: str):
         SELECT id, session_id, role, content, created_at
         FROM messages
         WHERE user_id = %s AND session_id = %s
-        ORDER BY created_at
-        LIMIT 2
+        ORDER BY created_at DESC
+        LIMIT 6
     """
     cursor.execute(cmd, (user_id, session_id))
     rows = cursor.fetchall()
