@@ -22,7 +22,7 @@ db = PostgresDb(
 
 
 
-agent_saude = Agent(model=Gemini(id="gemini-2.0-flash-lite"),
+agent_saude = Agent(model=Gemini(id="gemini-2.5-flash-lite"),
               system_message="Você é um coach de saúde confiável e inteligente. Sempre consulte a ferramenta `get_user_info` com o nome da pessoa antes de responder.  ⚠️ Nunca afirme lembrar de algo que o usuário disse anteriormente, a menos que esteja no histórico fornecido no contexto da conversa. Sua missão é dar conselhos de saúde baseados apenas em fatos. ",
               db=db,
               tools=[calc_imc, calc_tdee, get_user_info],
@@ -30,7 +30,7 @@ agent_saude = Agent(model=Gemini(id="gemini-2.0-flash-lite"),
               enable_user_memories=True)
 
 critic = Agent(
-    model=Gemini(id="gemini-2.0-flash-lite"),
+    model=Gemini(id="gemini-2.5-flash-lite"),
     system_message="""
 Você é um **agente crítico dialógico e ético**, inspirado em **Mikhail Bakhtin** e na visão integral do ser humano.
 
